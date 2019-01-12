@@ -47,6 +47,7 @@ def gconnect():
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
+
     # Obtain authorization code
     code = request.data
 
@@ -191,7 +192,7 @@ def logout():
 
 
 # JSON API's to view information
-@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+@app.route('/restaurants/<int:restaurant_id>/menu/JSON/')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     items = session.query(MenuItem).filter_by(
@@ -199,13 +200,13 @@ def restaurantMenuJSON(restaurant_id):
     return jsonify(MenuItems=[i.serialize for i in items])
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON/')
 def menuItemJSON(restaurant_id, menu_id):
     menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(MenuItem=menuItem.serialize)
 
 
-@app.route('/restaurants/JSON')
+@app.route('/restaurants/JSON/')
 def restaurantsJSON():
     restaurants = session.query(Restaurant).all()
     return jsonify(restaurants=[r.serialize for r in restaurants])
