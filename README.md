@@ -12,19 +12,19 @@ Create a restaurant menu app where users can add, edit, and delete restaurants a
 3. Unzip and place the Item Catalog folder in your Vagrant directory
 4. Launch Vagrant
 ```
-$ Vagrant up 
+$ vagrant up 
 ```
 5. Login to Vagrant
 ```
-$ Vagrant ssh
+$ vagrant ssh
 ```
 6. Change directory to `/vagrant`
 ```
-$ Cd /vagrant
+$ cd /vagrant
 ```
 7. Initialize the database
 ```
-$ Python database_setup.py
+$ python database_setup.py
 ```
 8. Populate the database with some initial data
 ```
