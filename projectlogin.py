@@ -229,6 +229,7 @@ def newRestaurant():
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'])
         session.add(newRestaurant)
+        flash('Restaurant Added!')
         session.commit()
         return redirect(url_for('showRestaurants'))
     else:
