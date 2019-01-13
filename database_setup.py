@@ -18,6 +18,7 @@ class User(Base):
     email = Column(String(250), nullable=False)
     picture = Column(String(250))
 
+
 class Restaurant(Base):
     __tablename__ = 'restaurant'
 

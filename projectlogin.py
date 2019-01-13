@@ -22,7 +22,8 @@ CLIENT_ID = json.loads(
 APPLICATION_NAME = "Restaurant Menu Application"
 
 # Connect to database
-engine = create_engine('sqlite:///restaurants.db', connect_args={'check_same_thread': False})
+engine = create_engine('sqlite:///restaurants.db',
+                       connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
 # Create session
@@ -31,12 +32,14 @@ session = DBSession()
 
 # Create anti-forgery state token
 
+
 @app.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
     return render_template('login.html', STATE=state)
+
 
 # GConnect
 
@@ -134,6 +137,7 @@ def gconnect():
     print "done!"
     return output
 
+
 def createUser(user_id):
     new_user = User(name=login_session['username'],
                     email=login_session['email'],
@@ -143,9 +147,11 @@ def createUser(user_id):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
+
 def get_user_info(user_id):
     user = session.query(User).filter_by(id=user_id).one()
     return user
+
 
 def getUserID(email):
     try:
@@ -153,6 +159,7 @@ def getUserID(email):
         return user.id
     except:
         return None
+
 
 @app.route('/logout')
 def logout():
@@ -163,7 +170,8 @@ def logout():
             json.dumps('Current user not connected.'), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
-    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' % login_session['access_token']
+    url = 'https://accounts.google.com/o/oauth2/revoke?token=%s'
+    % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
 
@@ -188,6 +196,7 @@ def logout():
         response.headers['Content-Type'] = 'application/json'
         return response
 
+
 # JSON API's to view information
 @app.route('/restaurants/<int:restaurant_id>/menu/JSON/')
 def restaurantMenuJSON(restaurant_id):
@@ -196,15 +205,18 @@ def restaurantMenuJSON(restaurant_id):
         restaurant_id=restaurant_id).all()
     return jsonify(MenuItems=[i.serialize for i in items])
 
+
 @app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON/')
 def menuItemJSON(restaurant_id, menu_id):
     menuItem = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(MenuItem=menuItem.serialize)
 
+
 @app.route('/restaurants/JSON/')
 def restaurantsJSON():
     restaurants = session.query(Restaurant).all()
     return jsonify(restaurants=[r.serialize for r in restaurants])
+
 
 # Show all restaurants
 @app.route('/')
@@ -213,8 +225,8 @@ def showRestaurants():
     restaurants = session.query(Restaurant).all()
     return render_template('restaurants.html', restaurants=restaurants)
 
-# Create new restaurant
 
+# Create new restaurant
 @app.route('/restaurants/new/', methods=['GET', 'POST'])
 def newRestaurant():
     if 'username' not in login_session:
@@ -228,8 +240,8 @@ def newRestaurant():
     else:
         return render_template('newRestaurant.html')
 
-# Edit restaurant
 
+# Edit restaurant
 @app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     editedRestaurant = session.query(
@@ -245,8 +257,8 @@ def editRestaurant(restaurant_id):
         return render_template('editRestaurant.html',
                                restaurant=editedRestaurant)
 
-# Delete restaurant
 
+# Delete restaurant
 @app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     restaurantToDelete = session.query(
@@ -259,10 +271,11 @@ def deleteRestaurant(restaurant_id):
         session.commit()
         return redirect(url_for('showRestaurants'))
     else:
-        return render_template('deleteRestaurant.html',restaurant=restaurantToDelete)
+        return render_template('deleteRestaurant.html',
+                               restaurant=restaurantToDelete)
+
 
 # Show restaurant menu
-
 @app.route('/restaurants/<int:restaurant_id>/')
 @app.route('/restaurants/<int:restaurant_id>/menu/')
 def restaurantMenu(restaurant_id):
@@ -271,8 +284,8 @@ def restaurantMenu(restaurant_id):
         MenuItem).filter_by(restaurant_id=restaurant_id).all()
     return render_template('menu.html', restaurant=restaurant, items=items)
 
-# Create new menu item
 
+# Create new menu item
 @app.route(
     '/restaurants/<int:restaurant_id>/menu/new/', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
@@ -290,8 +303,8 @@ def newMenuItem(restaurant_id):
     else:
         return render_template('newmenuitem.html', restaurant_id=restaurant_id)
 
-# Edit menu item
 
+# Edit menu item
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/',
            methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
@@ -310,10 +323,12 @@ def editMenuItem(restaurant_id, menu_id):
         flash("Menu Item has been edited")
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
-        return render_template('editmenuitem.html', restaurant_id=restaurant_id,menu_id=menu_id, item=editedItem)
+        return render_template('editmenuitem.html',
+                               restaurant_id=restaurant_id,
+                               menu_id=menu_id, item=editedItem)
+
 
 # Delete menu item
-
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/',
            methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
@@ -327,6 +342,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('deleteMenuItem.html', item=itemToDelete)
+
 
 # end of file
 if __name__ == '__main__':
