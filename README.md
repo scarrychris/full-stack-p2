@@ -8,8 +8,8 @@ Create a restaurant menu app where users can add, edit, and delete restaurants a
 
 ### How to Run
 1. Install VirtualBox and Vagrant
-2. Clone this repo
-3. Unzip and place the full-stack-p2 folder in your Vagrant directory
+2. Clone this repo and also the vagrant file from https://github.com/udacity/fullstack-nanodegree-vm
+3. Unzip and place the vagrant file and full-stack-p2 folder in your Vagrant directory
 4. Launch Vagrant
 ```
 $ vagrant up 
