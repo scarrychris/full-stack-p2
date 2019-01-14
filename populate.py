@@ -31,26 +31,34 @@ restaurant1 = Restaurant(name="Billys' Burger", user_id="1")
 session.add(restaurant1)
 session.commit()
 
-menuItem1 = MenuItem(name="Chili Cheese Fries", description="Thick cut steak fries loaded with our famous homemade chili and natural cheddar cheese with jalapenos",
-                     price="$8.99", restaurant=restaurant1, user_id="1")
+menuItem1 = MenuItem(
+       name="Chili Cheese Fries",
+       description="Thick cut steak fries loaded with chili & cheese",
+       price="$8.99", restaurant=restaurant1, user_id="1")
 
 session.add(menuItem1)
 session.commit()
 
-menuItem2 = MenuItem(name="Bacon Burger", description="Juicy grilled sirloin patty with bacon piled on top",
-                     price="$9.50", restaurant=restaurant1, user_id="1")
+menuItem2 = MenuItem(
+       name="Bacon Burger",
+       description="Juicy grilled sirloin patty with bacon piled on top",
+       price="$9.50", restaurant=restaurant1, user_id="1")
 
 session.add(menuItem2)
 session.commit()
 
-menuItem3 = MenuItem(name="Chicken Breast BLT", description="Juicy grilled chicken breast with bacon, tomato, lettuce, and mayo",
-                     price="$5.50", restaurant=restaurant1, user_id="1")
+menuItem3 = MenuItem(
+       name="Chicken Breast BLT",
+       description="Juicy grilled chicken breast with B.L.T and mayo",
+       price="$5.50", restaurant=restaurant1, user_id="1")
 
 session.add(menuItem3)
 session.commit()
 
-menuItem4 = MenuItem(name="Double Chocolate Cake", description="Freshly baked and served with Chocolate ice cream",
-                     price="$3.99", restaurant=restaurant1, user_id="1")
+menuItem4 = MenuItem(
+       name="Double Chocolate Cake",
+       description="Freshly baked and served with Chocolate ice cream",
+       price="$3.99", restaurant=restaurant1, user_id="1")
 
 session.add(menuItem4)
 session.commit()
@@ -62,26 +70,34 @@ session.add(restaurant2)
 session.commit()
 
 
-menuItem1 = MenuItem(name="Goat Cheese Bruschetta", description="Toasted baguettes with a thin layer of Goat cheese topped with bruschetta tomatoes, Parmesan cheese and fresh basil",
-                     price="$7.99", restaurant=restaurant2)
+menuItem1 = MenuItem(
+       name="Goat Cheese Bruschetta",
+       description="Baguettes with tomatoes, Parmesan cheese and basil",
+       price="$7.99", restaurant=restaurant2)
 
 session.add(menuItem1)
 session.commit()
 
 menuItem2 = MenuItem(
-    name="Chipotle Chicken Wrap", description="Crispy chicken, salsa, corn, lettuce, onions, pepper jack and cheddar cheese topped with Chipotle dressing on a whole wheat wrap", price="$9.99", restaurant=restaurant2)
+       name="Chipotle Chicken Wrap",
+       description="Crispy chicken topped with Chipotle dressing in a wrap",
+       price="$9.99", restaurant=restaurant2)
 
 session.add(menuItem2)
 session.commit()
 
-menuItem3 = MenuItem(name="Lobster Raviolis", description="Lobster and cheese filled raviolis with Roma tomatoes and baby spinach tossed in a lemon cream sauce",
-                     price="$19.99", restaurant=restaurant2)
+menuItem3 = MenuItem(
+       name="Lobster Raviolis",
+       description="Lobster and cheese filled raviolis",
+       price="$19.99", restaurant=restaurant2)
 
 session.add(menuItem3)
 session.commit()
 
-menuItem4 = MenuItem(name="Tiramisu", description="A luxurious Italian dessert consisting of alternating layers of lady fingers and mascarpone cheese soaked in espresso with a hint of Kahlua",
-                     price="$6.99", restaurant=restaurant2)
+menuItem4 = MenuItem(
+       name="Tiramisu",
+       description="A luxurious Italian dessert with a hint of Kahlua",
+       price="$6.99", restaurant=restaurant2)
 
 session.add(menuItem4)
 session.commit()

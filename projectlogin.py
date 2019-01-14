@@ -231,7 +231,8 @@ def newRestaurant():
     if 'username' not in login_session:
         return redirect('/login')
     if request.method == 'POST':
-        newRestaurant = Restaurant(name=request.form['name'], user_id=login_session['user_id'])
+        newRestaurant = Restaurant(name=request.form['name'],
+                                   user_id=login_session['user_id'])
         session.add(newRestaurant)
         flash('Restaurant Added!')
         session.commit()
@@ -294,15 +295,13 @@ def restaurantMenu(restaurant_id):
 def newMenuItem(restaurant_id):
     if 'username' not in login_session:
         return redirect('/login')
-    if MenuItem.user_id != login_session['user_id']:
+    if Restaurant.user_id == login_session['user_id']:
         return "<script>{alert('Unauthorized');}</script>"
     if request.method == 'POST':
         newItem = MenuItem(name=request.form['name'],
                            description=request.form['description'],
                            price=request.form['price'],
                            restaurant_id=restaurant_id)
-    if MenuItem.user_id != login_session['user_id']:
-        return "<script>{alert('Unauthorized');}</script>"
         session.add(newItem)
         session.commit()
         flash("Menu Item has been added")
